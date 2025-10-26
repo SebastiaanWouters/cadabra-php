@@ -2,6 +2,8 @@
 
 Transparent query cache for Symfony applications with Doctrine ORM. Intercepts at DBAL level for zero-code-change integration.
 
+> **Note**: This package requires a running [Cadabra server](https://github.com/SebastiaanWouters/cadabra). The server handles SQL normalization, cache key generation, and invalidation logic.
+
 ## Why This Works
 
 This bundle intercepts database queries **after SQL generation but before execution** (DBAL `Statement::execute` level). It caches **raw database arrays before ORM hydration**, allowing Doctrine to hydrate entities normally. All Doctrine features work: UnitOfWork, lazy loading, lifecycle events, etc.

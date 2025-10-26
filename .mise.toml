@@ -1,0 +1,9 @@
+# Mise configuration for Cadabra PHP
+# Ensures correct versions of runtime dependencies
+
+[tools]
+"ubi:adwinying/php" = "8.4"
+
+[env]
+# Optional: Set environment-specific variables
+_.file = ".env"

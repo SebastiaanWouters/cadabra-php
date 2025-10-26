@@ -14,10 +14,10 @@
     "database",
     "performance"
   ],
-  "homepage": "https://github.com/SebastiaanWouters/cadabra",
+  "homepage": "https://github.com/SebastiaanWouters/cadabra-php",
   "support": {
-    "issues": "https://github.com/SebastiaanWouters/cadabra/issues",
-    "source": "https://github.com/SebastiaanWouters/cadabra"
+    "issues": "https://github.com/SebastiaanWouters/cadabra-php/issues",
+    "source": "https://github.com/SebastiaanWouters/cadabra-php"
   },
   "authors": [
     {
@@ -56,6 +56,7 @@
   "scripts": {
     "test": "phpunit --colors=always",
     "test:unit": "phpunit --colors=always tests/Unit",
+    "test:integration": "cd symfony-test-app && vendor/bin/phpunit",
     "test:coverage": "phpunit --coverage-html coverage/",
     "cs:check": "php-cs-fixer fix --dry-run --diff --verbose",
     "cs:fix": "php-cs-fixer fix --verbose",
@@ -65,6 +66,7 @@
   "scripts-descriptions": {
     "test": "Run all PHPUnit tests",
     "test:unit": "Run only unit tests",
+    "test:integration": "Run Symfony integration tests",
     "test:coverage": "Run tests with HTML coverage report",
     "cs:check": "Check code style with PHP CS Fixer",
     "cs:fix": "Auto-fix code style issues",
