@@ -8,10 +8,10 @@
     }
   },
   "scripts": {
-    "cs:check": "php-cs-fixer check --diff",
-    "cs:fix": "php-cs-fixer fix",
-    "phpstan": "phpstan analyze --no-progress",
-    "test": "phpunit",
+    "cs:check": "vendor/bin/php-cs-fixer check --diff",
+    "cs:fix": "vendor/bin/php-cs-fixer fix",
+    "phpstan": "vendor/bin/phpstan analyze --no-progress",
+    "test": "vendor/bin/phpunit",
     "check": [
       "@cs:check",
       "@phpstan"
