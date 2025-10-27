@@ -3,13 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Product>
+ * @extends CadabraRepository<Product>
  */
-class ProductRepository extends ServiceEntityRepository
+class ProductRepository extends CadabraRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -25,6 +24,7 @@ class ProductRepository extends ServiceEntityRepository
             ->where('p.category = :categoryId')
             ->setParameter('categoryId', $categoryId)
             ->orderBy('p.name', 'ASC')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -38,6 +38,7 @@ class ProductRepository extends ServiceEntityRepository
             ->select('p', 'c')
             ->join('p.category', 'c')
             ->setMaxResults($limit)
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -53,6 +54,7 @@ class ProductRepository extends ServiceEntityRepository
             ->leftJoin('r.user', 'u')
             ->where('p.id = :id')
             ->setParameter('id', $productId)
+            ->useCadabraCache()
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -68,6 +70,7 @@ class ProductRepository extends ServiceEntityRepository
             ->setParameter('min', $minPrice)
             ->setParameter('max', $maxPrice)
             ->orderBy('p.price', 'ASC')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -81,6 +84,7 @@ class ProductRepository extends ServiceEntityRepository
             ->where('p.stock < :threshold')
             ->setParameter('threshold', $threshold)
             ->orderBy('p.stock', 'ASC')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -95,6 +99,7 @@ class ProductRepository extends ServiceEntityRepository
             ->join('p.category', 'c')
             ->groupBy('c.id')
             ->orderBy('avg_price', 'DESC')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -108,6 +113,7 @@ class ProductRepository extends ServiceEntityRepository
             ->where('p.name LIKE :query')
             ->setParameter('query', '%' . $query . '%')
             ->setMaxResults(20)
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }

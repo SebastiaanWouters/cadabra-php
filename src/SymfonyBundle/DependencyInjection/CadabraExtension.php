@@ -58,18 +58,7 @@ class CadabraExtension extends Extension
 
     private function registerCacheStrategy(ContainerBuilder $container, array $config): void
     {
-        $strategyConfig = [
-            'enabled' => $config['auto_cache']['enabled'],
-            'default_ttl' => $config['auto_cache']['default_ttl'],
-            'cache_primary_key_lookups' => $config['auto_cache']['heuristics']['cache_primary_key_lookups'],
-            'cache_simple_where' => $config['auto_cache']['heuristics']['cache_simple_where'],
-            'max_join_tables' => $config['auto_cache']['heuristics']['max_join_tables'],
-            'exclude_keywords' => $config['auto_cache']['heuristics']['exclude_keywords'],
-            'exclude_tables' => $config['auto_cache']['heuristics']['exclude_tables'],
-            'table_ttls' => $config['table_ttls'],
-        ];
-
-        $strategyDef = new Definition(CacheStrategy::class, [$strategyConfig]);
+        $strategyDef = new Definition(CacheStrategy::class, [[]]);
         $strategyDef->setPublic(false);
 
         $container->setDefinition('cadabra.cache_strategy', $strategyDef);
@@ -80,7 +69,6 @@ class CadabraExtension extends Extension
         $middlewareDef = new Definition(CadabraMiddleware::class, [
             new Reference('cadabra.client'),
             new Reference('cadabra.cache_strategy'),
-            new Reference('cache.app'),
             $config['prefix'],
             new Reference('logger', ContainerBuilder::IGNORE_ON_INVALID_REFERENCE),
         ]);

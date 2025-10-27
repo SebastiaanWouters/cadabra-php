@@ -20,9 +20,14 @@ Comprehensive guide for testing the Cadabra Symfony Bundle integration.
 # 1. Install dependencies
 composer install
 
-# 2. Start Cadabra server (in separate terminal)
-cd ../../cadabra
-bun server.ts
+# 2. Start Cadabra server
+# Option A: Using Docker (recommended)
+docker pull ghcr.io/sebastiaanwouters/cadabra:latest
+docker run -d -p 6942:6942 --name cadabra-server ghcr.io/sebastiaanwouters/cadabra:latest
+
+# Option B: From source (requires Bun)
+cd ~/Work/cadabra
+bun run server.ts
 
 # 3. Set up test database
 ./bin/setup.sh
@@ -479,9 +484,13 @@ test:
 
 ### Tests Are Slow
 
-1. **Check if Cadabra is running**:
+1. **Check if Cadabra server is running**:
    ```bash
    curl http://localhost:6942/health
+   # Should return: {"status":"ok"} or similar
+
+   # If not running, start it:
+   docker run -d -p 6942:6942 --name cadabra-server ghcr.io/sebastiaanwouters/cadabra:latest
    ```
 
 2. **Verify cache is enabled**:

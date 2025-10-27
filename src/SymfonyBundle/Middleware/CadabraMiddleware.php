@@ -9,7 +9,6 @@ use Cadabra\SymfonyBundle\Service\CacheStrategy;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Middleware;
 use Psr\Log\LoggerInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * DBAL Middleware that intercepts database operations.
@@ -19,20 +18,17 @@ class CadabraMiddleware implements Middleware
 {
     private CadabraClient $client;
     private CacheStrategy $strategy;
-    private CacheInterface $cache;
     private string $prefix;
     private ?LoggerInterface $logger;
 
     public function __construct(
         CadabraClient $client,
         CacheStrategy $strategy,
-        CacheInterface $cache,
         string $prefix,
         ?LoggerInterface $logger = null
     ) {
         $this->client = $client;
         $this->strategy = $strategy;
-        $this->cache = $cache;
         $this->prefix = $prefix;
         $this->logger = $logger;
     }
@@ -46,7 +42,6 @@ class CadabraMiddleware implements Middleware
             $driver,
             $this->client,
             $this->strategy,
-            $this->cache,
             $this->prefix,
             $this->logger
         );

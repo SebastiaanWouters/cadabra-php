@@ -66,16 +66,14 @@ class CadabraClient
      * @param string $sql Raw SQL query
      * @param array<mixed> $params Query parameters
      * @param array<int, array<string, mixed>> $result Query result rows
-     * @param int $ttl Cache TTL in seconds
      * @throws CadabraException
      */
-    public function register(string $sql, array $params, array $result, int $ttl): void
+    public function register(string $sql, array $params, array $result): void
     {
         $this->post('/register', [
             'sql' => $sql,
             'params' => $params,
             'result' => base64_encode(serialize($result)),
-            'ttl' => $ttl,
         ]);
     }
 

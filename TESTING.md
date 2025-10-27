@@ -96,15 +96,19 @@ vendor/bin/phpunit --filter testShouldCacheSimpleQuery
 
 ### Integration Tests
 
-Integration tests require the Cadabra server to be running:
+Integration tests require a Cadabra server to be running:
 
 ```bash
-# 1. Start Cadabra server (in separate terminal)
-cd ../../cadabra
+# Option 1: Using Docker (recommended)
+docker pull ghcr.io/sebastiaanwouters/cadabra:latest
+docker run -d -p 6942:6942 --name cadabra-server ghcr.io/sebastiaanwouters/cadabra:latest
+
+# Option 2: From source (requires Bun)
+cd ~/Work/cadabra
 bun run server.ts
 
-# 2. Run integration tests
-cd ../cadabra-php/symfony-test-app
+# After starting the server, run integration tests
+cd ~/Work/cadabra-php/symfony-test-app
 vendor/bin/phpunit
 
 # Or run specific test suite
@@ -263,6 +267,8 @@ Tests run across:
 - Symfony: 6.0, 7.0
 - Total: 7 combinations
 
+This ensures compatibility across PHP and Symfony versions.
+
 ---
 
 ## Code Style
@@ -368,11 +374,17 @@ composer dump-autoload
 
 ```bash
 # Ensure Cadabra server is running
-cd ../../cadabra
+# Using Docker (recommended):
+docker run -d -p 6942:6942 --name cadabra-server ghcr.io/sebastiaanwouters/cadabra:latest
+
+# Or from source:
+cd ~/Work/cadabra
 bun run server.ts
 
 # Check server health
 curl http://localhost:6942/health
+
+# Should return: {"status":"ok"} or similar
 ```
 
 ### Cache directory permissions

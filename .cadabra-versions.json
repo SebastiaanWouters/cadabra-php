@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "description": "Compatible Cadabra server versions for cadabra-php client",
+  "comment": "This file defines which Cadabra server versions are compatible with this PHP client",
+  "server": {
+    "description": "Cadabra server (TypeScript/Bun)",
+    "repository": "https://github.com/SebastiaanWouters/cadabra",
+    "registry": "ghcr.io/sebastiaanwouters/cadabra",
+    "versions": {
+      "latest": {
+        "tag": "latest",
+        "recommended": true,
+        "description": "Latest stable release - recommended for development and testing"
+      },
+      "pinned": {
+        "tag": "0.2.0",
+        "recommended": false,
+        "description": "Pinned version for reproducible builds"
+      }
+    }
+  },
+  "compatibility": {
+    "api_version": "v1",
+    "endpoints": [
+      "POST /analyze",
+      "POST /register",
+      "GET /cache/:fingerprint",
+      "POST /invalidate",
+      "POST /should-invalidate",
+      "GET /stats",
+      "DELETE /table/:name",
+      "GET /health"
+    ],
+    "notes": [
+      "The PHP client sends raw SQL to the server without normalization",
+      "Server handles SQL normalization, cache key generation, and invalidation"
+    ]
+  },
+  "ci_testing": {
+    "strategy": "docker",
+    "description": "CI tests against the latest Docker image to ensure compatibility",
+    "tested_version": "cadabra:latest"
+  }
+}

@@ -12,7 +12,6 @@ use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Psr\Log\LoggerInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * Driver middleware that wraps the DBAL driver.
@@ -22,7 +21,6 @@ class CadabraDriver implements Driver
     private Driver $wrappedDriver;
     private CadabraClient $client;
     private CacheStrategy $strategy;
-    private CacheInterface $cache;
     private string $prefix;
     private ?LoggerInterface $logger;
 
@@ -30,14 +28,12 @@ class CadabraDriver implements Driver
         Driver $wrappedDriver,
         CadabraClient $client,
         CacheStrategy $strategy,
-        CacheInterface $cache,
         string $prefix,
         ?LoggerInterface $logger = null
     ) {
         $this->wrappedDriver = $wrappedDriver;
         $this->client = $client;
         $this->strategy = $strategy;
-        $this->cache = $cache;
         $this->prefix = $prefix;
         $this->logger = $logger;
     }
@@ -54,7 +50,6 @@ class CadabraDriver implements Driver
             $wrappedConnection,
             $this->client,
             $this->strategy,
-            $this->cache,
             $this->prefix,
             $this->logger
         );

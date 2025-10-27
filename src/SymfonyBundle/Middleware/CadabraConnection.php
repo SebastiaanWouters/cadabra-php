@@ -10,7 +10,6 @@ use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Driver\Result;
 use Doctrine\DBAL\Driver\Statement;
 use Psr\Log\LoggerInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * Connection wrapper that creates CadabraStatements.
@@ -20,7 +19,6 @@ class CadabraConnection implements Connection
     private Connection $wrappedConnection;
     private CadabraClient $client;
     private CacheStrategy $strategy;
-    private CacheInterface $cache;
     private string $prefix;
     private ?LoggerInterface $logger;
 
@@ -28,14 +26,12 @@ class CadabraConnection implements Connection
         Connection $wrappedConnection,
         CadabraClient $client,
         CacheStrategy $strategy,
-        CacheInterface $cache,
         string $prefix,
         ?LoggerInterface $logger = null
     ) {
         $this->wrappedConnection = $wrappedConnection;
         $this->client = $client;
         $this->strategy = $strategy;
-        $this->cache = $cache;
         $this->prefix = $prefix;
         $this->logger = $logger;
     }
@@ -53,7 +49,6 @@ class CadabraConnection implements Connection
             $sql,
             $this->client,
             $this->strategy,
-            $this->cache,
             $this->prefix,
             $this->logger
         );

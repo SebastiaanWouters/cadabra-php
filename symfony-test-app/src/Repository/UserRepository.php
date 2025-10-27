@@ -3,13 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<User>
+ * @extends CadabraRepository<User>
  */
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends CadabraRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -24,6 +23,7 @@ class UserRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('u')
             ->where('u.email = :email')
             ->setParameter('email', $email)
+            ->useCadabraCache()
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -37,6 +37,7 @@ class UserRepository extends ServiceEntityRepository
             ->where('u.createdAt >= :since')
             ->setParameter('since', $since)
             ->orderBy('u.createdAt', 'DESC')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -50,6 +51,7 @@ class UserRepository extends ServiceEntityRepository
             ->select('u', 'o')
             ->leftJoin('u.orders', 'o')
             ->setMaxResults($limit)
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -61,6 +63,7 @@ class UserRepository extends ServiceEntityRepository
     {
         return (int) $this->createQueryBuilder('u')
             ->select('COUNT(u.id)')
+            ->useCadabraCache()
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -74,6 +77,7 @@ class UserRepository extends ServiceEntityRepository
             ->orderBy('u.id', 'ASC')
             ->setFirstResult(($page - 1) * $perPage)
             ->setMaxResults($perPage)
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }

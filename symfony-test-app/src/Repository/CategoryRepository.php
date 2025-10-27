@@ -3,13 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Category>
+ * @extends CadabraRepository<Category>
  */
-class CategoryRepository extends ServiceEntityRepository
+class CategoryRepository extends CadabraRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -26,6 +25,7 @@ class CategoryRepository extends ServiceEntityRepository
             ->leftJoin('c.products', 'p')
             ->groupBy('c.id')
             ->orderBy('product_count', 'DESC')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }
@@ -38,6 +38,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->where('c.name = :name')
             ->setParameter('name', $name)
+            ->useCadabraCache()
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -50,6 +51,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->select('c', 'p')
             ->leftJoin('c.products', 'p')
+            ->useCadabraCache()
             ->getQuery()
             ->getResult();
     }

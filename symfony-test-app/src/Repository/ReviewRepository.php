@@ -3,13 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Review;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Review>
+ * @extends CadabraRepository<Review>
  */
-class ReviewRepository extends ServiceEntityRepository
+class ReviewRepository extends CadabraRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

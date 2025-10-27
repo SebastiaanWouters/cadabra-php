@@ -3,13 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\OrderItem;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<OrderItem>
+ * @extends CadabraRepository<OrderItem>
  */
-class OrderItemRepository extends ServiceEntityRepository
+class OrderItemRepository extends CadabraRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
