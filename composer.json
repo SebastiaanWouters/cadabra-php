@@ -1,87 +1,10 @@
 {
   "name": "cadabra/php",
-  "description": "PHP client and Symfony bundle for Cadabra query cache with Doctrine DBAL middleware",
   "type": "library",
-  "license": "MIT",
-  "keywords": [
-    "cache",
-    "query-cache",
-    "symfony",
-    "doctrine",
-    "dbal",
-    "middleware",
-    "sql",
-    "database",
-    "performance"
-  ],
-  "homepage": "https://github.com/SebastiaanWouters/cadabra-php",
-  "support": {
-    "issues": "https://github.com/SebastiaanWouters/cadabra-php/issues",
-    "source": "https://github.com/SebastiaanWouters/cadabra-php"
-  },
-  "authors": [
-    {
-      "name": "Cadabra Contributors"
-    }
-  ],
-  "require": {
-    "php": "^8.1",
-    "symfony/framework-bundle": "^6.0|^7.0",
-    "symfony/config": "^6.0|^7.0",
-    "symfony/dependency-injection": "^6.0|^7.0",
-    "symfony/http-kernel": "^6.0|^7.0",
-    "symfony/cache": "^6.0|^7.0",
-    "symfony/http-client": "^6.0|^7.0",
-    "doctrine/dbal": "^3.0|^4.0",
-    "doctrine/orm": "^2.14|^3.0",
-    "psr/http-client": "^1.0",
-    "psr/log": "^2.0|^3.0",
-    "psr/http-message": "^2.0",
-    "psr/http-factory": "^1.1"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^10.0",
-    "symfony/phpunit-bridge": "^6.0|^7.0",
-    "friendsofphp/php-cs-fixer": "^3.0",
-    "phpstan/phpstan": "^2.1",
-    "phpstan/phpstan-phpunit": "^2.0",
-    "phpstan/phpstan-strict-rules": "^2.0"
-  },
   "autoload": {
     "psr-4": {
       "Cadabra\\Client\\": "src/Client/",
       "Cadabra\\SymfonyBundle\\": "src/SymfonyBundle/"
     }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Cadabra\\Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "test": "phpunit --colors=always",
-    "test:unit": "phpunit --colors=always tests/Unit",
-    "test:integration": "cd symfony-test-app && vendor/bin/phpunit",
-    "test:coverage": "phpunit --coverage-html coverage/",
-    "cs:check": "php-cs-fixer fix --dry-run --diff --verbose",
-    "cs:fix": "php-cs-fixer fix --verbose",
-    "phpstan": "phpstan analyse --memory-limit=1G",
-    "phpstan:baseline": "phpstan analyse --memory-limit=1G --generate-baseline",
-    "check": ["@cs:check", "@phpstan", "@test:unit"],
-    "fix": "@cs:fix"
-  },
-  "scripts-descriptions": {
-    "test": "Run all PHPUnit tests",
-    "test:unit": "Run only unit tests",
-    "test:integration": "Run Symfony integration tests",
-    "test:coverage": "Run tests with HTML coverage report",
-    "cs:check": "Check code style with PHP CS Fixer",
-    "cs:fix": "Auto-fix code style issues",
-    "phpstan": "Run PHPStan static analysis",
-    "phpstan:baseline": "Generate PHPStan baseline for existing errors",
-    "check": "Run all quality checks (code style + static analysis + tests)",
-    "fix": "Auto-fix code style issues"
-  },
-  "minimum-stability": "stable",
-  "prefer-stable": true
+  }
 }

@@ -73,7 +73,9 @@ class CadabraExtension extends Extension
             new Reference('logger', ContainerBuilder::IGNORE_ON_INVALID_REFERENCE),
         ]);
         $middlewareDef->addTag('doctrine.middleware');
-        $middlewareDef->setPublic(false);
+        // Must be public so Doctrine can access it via the tag
+        // Tagged services for middlewares are collected by DoctrineBundle
+        $middlewareDef->setPublic(true);
 
         $container->setDefinition('cadabra.middleware', $middlewareDef);
     }
