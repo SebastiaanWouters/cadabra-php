@@ -6,5 +6,15 @@
       "Cadabra\\Client\\": "src/Client/",
       "Cadabra\\SymfonyBundle\\": "src/SymfonyBundle/"
     }
+  },
+  "scripts": {
+    "cs:check": "php-cs-fixer check --diff",
+    "cs:fix": "php-cs-fixer fix",
+    "phpstan": "phpstan analyze --no-progress",
+    "test": "phpunit",
+    "check": [
+      "@cs:check",
+      "@phpstan"
+    ]
   }
 }
