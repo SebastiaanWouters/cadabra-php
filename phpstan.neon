@@ -1,0 +1,42 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests
+    excludePaths:
+        # Doctrine DBAL middleware wrapper classes that must support multiple DBAL versions
+        # These implement interfaces that vary significantly between Doctrine DBAL 3.x and 4.x
+        - src/SymfonyBundle/Middleware/CadabraConnection.php
+        - src/SymfonyBundle/Middleware/CadabraDriver.php
+        - src/SymfonyBundle/Middleware/CadabraStatement.php
+    tmpDir: var/phpstan
+
+    # Ignore common patterns
+    ignoreErrors:
+        # PHPUnit assertions are called dynamically in test classes
+        - '#^Dynamic call to static method PHPUnit\\Framework\\Assert::#'
+        # Allow empty() - not critical for type safety
+        - '#^Construct empty\(\) is not allowed#'
+        # Unused properties (dependency injection via constructor)
+        -
+            message: '#^Property .+::\$.+ is never read, only written\.$#'
+            paths:
+                - src/Client/CadabraClient.php
+        # Unused constructor parameters (reserved for future use)
+        - '#^Constructor of class Cadabra\\SymfonyBundle\\Service\\CacheStrategy has an unused parameter \$config\.$#'
+
+        # Symfony Config Builder - NodeDefinition children() is a magic method
+        - '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)\.$#'
+
+        # ORM Query hints are mixed type by design
+        - '#^Only booleans are allowed in an if condition, mixed given\.$#'
+
+        # Extension config arrays are mixed by design
+        - '#^Method Cadabra\\SymfonyBundle\\DependencyInjection\\CadabraExtension::register.+\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+
+        # Test data structures don't need precise typing
+        - '#^Property Cadabra\\Tests\\Unit\\CachedResultTest::\$sampleRows type has no value type specified in iterable type array\.$#'

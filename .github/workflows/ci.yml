@@ -49,6 +49,9 @@ jobs:
       - name: Run PHP code style check
         run: composer cs:check
 
+      - name: Run PHPStan static analysis
+        run: composer phpstan
+
   test:
     name: Test PHP ${{ matrix.php }} / Symfony ${{ matrix.symfony }}
     runs-on: ubuntu-latest
