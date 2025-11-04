@@ -6,6 +6,7 @@ namespace Cadabra\SymfonyBundle\Middleware;
 
 use Cadabra\Client\CadabraClient;
 use Cadabra\SymfonyBundle\Service\CacheStrategy;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsMiddleware;
 use Doctrine\DBAL\Driver;
 use Doctrine\DBAL\Driver\Middleware;
 use Psr\Log\LoggerInterface;
@@ -14,6 +15,7 @@ use Psr\Log\LoggerInterface;
  * DBAL Middleware that intercepts database operations.
  * This is registered with Doctrine and wraps the driver.
  */
+#[AsMiddleware]
 class CadabraMiddleware implements Middleware
 {
     private CadabraClient $client;

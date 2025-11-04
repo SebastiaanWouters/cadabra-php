@@ -72,7 +72,18 @@ class CadabraExtension extends Extension
             $config['prefix'],
             new Reference('logger', ContainerBuilder::IGNORE_ON_INVALID_REFERENCE),
         ]);
-        $middlewareDef->addTag('doctrine.middleware');
+
+        // Enable autoconfigure to pick up the #[AsMiddleware] attribute
+        $middlewareDef->setAutoconfigured(true);
+
+        // Also manually add the tag for compatibility with older setups
+        // The priority ensures our middleware runs with appropriate precedence
+        // connection: 'default' ensures it applies to the default DBAL connection
+        $middlewareDef->addTag('doctrine.middleware', [
+            'priority' => 0,
+            'connection' => 'default'
+        ]);
+
         // Must be public so Doctrine can access it via the tag
         // Tagged services for middlewares are collected by DoctrineBundle
         $middlewareDef->setPublic(true);
