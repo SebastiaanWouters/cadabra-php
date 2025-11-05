@@ -81,7 +81,7 @@ class CadabraExtension extends Extension
         // connection: 'default' ensures it applies to the default DBAL connection
         $middlewareDef->addTag('doctrine.middleware', [
             'priority' => 0,
-            'connection' => 'default'
+            'connection' => 'default',
         ]);
 
         // Must be public so Doctrine can access it via the tag
